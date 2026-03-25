@@ -19,6 +19,7 @@
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/logic/relation_engine.js
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/autocomplete/ac_list.js
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/autocomplete/autocomplete.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/mirror/ghost_click.js
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/button/button_icons.js
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/button/button_menu.js
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/button/button_theme.js

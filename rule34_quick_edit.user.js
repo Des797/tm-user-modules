@@ -1,0 +1,46 @@
+// ==UserScript==
+// @name         Rule34 Quick Edit Mode
+// @namespace    https://rule34.xxx/
+// @version      1.0.0
+// @description  Floating button to toggle Quick Edit Mode — auto-opens the tag editor when viewing a post.
+// @author       You
+// @match        https://rule34.xxx/*
+// @grant        GM_setValue
+// @grant        GM_getValue
+// @grant        GM_xmlhttpRequest
+// @connect      api.rule34.xxx
+// @run-at       document-end
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/config.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/network/api_client.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/storage/count_cache.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/storage/storage_keys.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/storage/tag_storage.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/logic/parse_rules.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/logic/relation_engine.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/autocomplete/ac_list.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/autocomplete/autocomplete.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/button/button_icons.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/button/button_menu.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/button/button_theme.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/button/button_create.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/button/toggle_mode.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/manager_dom.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/manager_styles.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/manager_tabs.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/blacklist_page.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/data_page.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/relations_page.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/suggestions_page.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/tags/tags_graph.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/tags/tags_synonyms.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/tags/tags_list.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/tags/tags_details.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/tags/tags_page.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/manager_open.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/mirror/mirror_create.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/scroll_lock.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/toast.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/handlers/post_list.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/handlers/post_view.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/init/bootstrap.js
+// ==/UserScript==

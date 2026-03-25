@@ -1,8 +1,8 @@
-// === SECTION: relations page | filename: relations_page ===
+// RELATIONS PAGE: `buildRelationsPage()` — inner function of createRelationsManager. Builds the Relations tab: dual inputs (left/right sides) with operator buttons (= > < =/=) and swap, add/edit/save/cancel flow, searchable sorted rule list with per-rule edit/duplicate/undo-able-delete actions, and autocomplete on both inputs. Appends to `pageRel`.
     /* ══════════════════════════════════════════
        RELATIONS PAGE
     ══════════════════════════════════════════ */
-    function buildRelationsPage() {
+    function buildRelationsPage(container) {
       /* Add area */
       const addArea = document.createElement('div');
       addArea.className = 'qem-mgr-add-area';
@@ -210,6 +210,6 @@
       });
 
       renderRulesList('');
-      pageRel.appendChild(addArea);
-      pageRel.appendChild(list);
+      container.appendChild(addArea);
+      container.appendChild(list);
     }

@@ -1,4 +1,4 @@
-// === SECTION: scroll lock | filename: scroll_lock ===
+// SCROLL LOCK: `_lockScroll()` freezes page scroll by fixing `document.body` position and recording `scrollY`. `_unlockScroll()` reverses this and restores the scroll position. Used by the Relations Manager to prevent background scrolling while the modal is open.
   /* ─────────────────────────────────────────────
      SCROLL LOCK
   ───────────────────────────────────────────── */

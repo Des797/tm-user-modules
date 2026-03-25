@@ -1,4 +1,4 @@
-// === SECTION: toast | filename: toast ===
+// TOAST: `showToast(msg)` — displays a transient fixed-position notification (top-right, 2 s, fade in/out). Removes any existing toast before creating a new one. Used throughout the script for user feedback.
   /* ─────────────────────────────────────────────
      TOAST NOTIFICATION
   ───────────────────────────────────────────── */

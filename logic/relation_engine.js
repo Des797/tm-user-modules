@@ -1,4 +1,4 @@
-// === SECTION: relation engine | filename: relation_engine ===
+// RELATION ENGINE: Builds runtime lookup structures from stored rules and queries them. `buildRelationMaps()` returns `{impliesMap, negatesMap, compoundRules, wildcardRules}` — fast-path Maps for single-tag sides, arrays for compound AND and wildcard rules. `getRelatedTags(tagSet, maps)` returns tags implied by the current set. `getSuppressedTags(tagSet, maps, blacklist)` returns tags that should be hidden (negated or blacklisted).
   /*
    * buildRelationMaps() — parses stored relations into fast runtime structures.
    * Returns { impliesMap: Map, negatesMap: Map, compoundRules: [], wildcardRules: [] }
@@ -17,8 +17,8 @@
     const rules = getRelations();
 
     function addImply(from, to) {
-      if (!impliesMap.has(from)) impliesMap.set(from, []);
-      if (!impliesMap.get(from).includes(to)) impliesMap.get(from).push(to);
+      if (!impliesMap.has(from)) impliesMap.set(from, new Set());
+      impliesMap.get(from).add(to);
     }
     function addNegate(a, b) {
       if (!negatesMap.has(a)) negatesMap.set(a, new Set());

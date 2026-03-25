@@ -1,8 +1,8 @@
-// === SECTION: suggestions page | filename: suggestions_page ===
+// SUGGESTIONS PAGE: `buildSuggestionsPage()` — inner function of createRelationsManager. Analyses stored rules for two redundancy types: (1) transitive redundancy — A→C is implied by A→B→C; (2) mirror duplicates — A>B and B<A both exist. Renders up to 5 suggestions as cards with accept (removes rule(s)) and dismiss actions. Maintains a session-local dismissed set. Appends to `pageSugg`.
     /* ══════════════════════════════════════════
        SUGGESTIONS PAGE
     ══════════════════════════════════════════ */
-    function buildSuggestionsPage() {
+    function buildSuggestionsPage(container) {
       const _dismissed = new Set();
 
       function getAncestors(tag, parentGraph) {
@@ -97,7 +97,7 @@
       }
 
       function renderSuggestions() {
-        pageSugg.innerHTML = '';
+        container.innerHTML = '';
         const all = findSuggestions(getRelations());
         const batch = all.slice(0, 5);
 
@@ -105,7 +105,7 @@
         refreshBtn.className = 'qem-sugg-refresh';
         refreshBtn.textContent = `↻ Refresh  (${all.length} suggestion${all.length !== 1 ? 's' : ''} found)`;
         refreshBtn.addEventListener('click', renderSuggestions);
-        pageSugg.appendChild(refreshBtn);
+        container.appendChild(refreshBtn);
 
         const listEl = document.createElement('div');
         listEl.id = 'qem-sugg-list';
@@ -148,7 +148,7 @@
             listEl.appendChild(card);
           });
         }
-        pageSugg.appendChild(listEl);
+        container.appendChild(listEl);
       }
 
       /* Render immediately if this tab is active on open */

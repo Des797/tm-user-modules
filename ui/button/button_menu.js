@@ -1,4 +1,4 @@
-// === SECTION: button menu | filename: button_menu ===
+// BUTTON MENU: `openMenu(btn)` — toggles the floating action menu anchored above the button. Menu contains two items: "Quick Edit ON/OFF" (calls `toggleMode`) and "Manage Relations" (opens/closes the Relations Manager). Closes on outside click or Escape. Refactored from an inner closure to a top-level function; `btn` is passed explicitly.
   /* Refactor note: openMenu was originally declared inside createButton, closing over btn.
      Lifted to top-level with btn as an explicit parameter — structurally identical behaviour. */
   function openMenu(btn) {

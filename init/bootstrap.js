@@ -1,4 +1,4 @@
-// === SECTION: bootstrap | filename: bootstrap ===
+// BOOTSTRAP: `init()` — entry point. Calls `createButton()`, then dispatches to `handlePostView()` or `handlePostList()` based on the current URL. Runs immediately if the DOM is ready, otherwise defers to DOMContentLoaded. Closes the outer IIFE.
   /* ─────────────────────────────────────────────
      INIT
   ───────────────────────────────────────────── */

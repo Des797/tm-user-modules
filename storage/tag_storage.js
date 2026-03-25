@@ -1,4 +1,4 @@
-// === SECTION: tag storage | filename: tag_storage ===
+// TAG STORAGE: CRUD helpers for all persistent tag data. `parseTags(str)` splits a whitespace-delimited tag string. `getRelations/saveRelations` and `getBlacklist/saveBlacklist` read/write GM arrays. `getRecentTags()` returns tags sorted by cross-session frequency. `getFavoriteTags(n)` returns top-n by use count. `recordAddedTags(original, newTags)` appends the session diff to recent history and increments favorite counts.
   function parseTags(str) {
     return str.trim().split(/\s+/).filter(Boolean);
   }

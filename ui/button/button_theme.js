@@ -1,4 +1,4 @@
-// === SECTION: button theme | filename: button_theme ===
+// BUTTON THEME: `applyButtonTheme(btn, active)` — sets the floating button's background gradient and box-shadow to red (active) or dark-grey (inactive).
   function applyButtonTheme(btn, active) {
     btn.style.background = active
       ? 'linear-gradient(135deg, #e84040 0%, #b01c1c 100%)'

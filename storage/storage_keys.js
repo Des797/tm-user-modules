@@ -1,4 +1,4 @@
-// === SECTION: storage keys | filename: storage_keys ===
+// STORAGE KEYS: GM storage key constants (`RECENT_KEY`, `FREQ_KEY`, `COUNT_KEY`, `RELATIONS_KEY`, `BLACKLIST_KEY`) and `COUNT_TTL` (7-day ms value). Centralises all GM key strings so they are never hardcoded elsewhere.
   const RECENT_KEY  = 'r34_recent_tags';
   const FREQ_KEY    = 'r34_tag_freq';
   const COUNT_KEY   = 'r34_tag_counts'; // {tag: {count, ts}}

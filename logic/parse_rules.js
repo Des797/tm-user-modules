@@ -1,4 +1,4 @@
-// === SECTION: rule parser | filename: parse_rules ===
+// RULE PARSER: Parses relation rule strings into structured data. `parseRuleTokens(str)` splits a side into OR-groups of AND-sets. `parseRule(str)` handles both standard (`A OP B`) and parenthesised prefix form (`prefix ( A OP B )`), returns `{leftGroups, op, rightGroups}` or null. `opDisplay(op)` maps `>/<` to arrows. `wildcardToRegex(tok)` converts a glob token to a RegExp. `tokenHasWildcard(tok)` tests for `*`.
   /*
    * parseRuleTokens(str) — splits a tag group string into OR-groups of AND-sets.
    * "1girl | 2girls"   → [['1girl'], ['2girls']]
@@ -45,11 +45,11 @@
     return op; // = and =/= unchanged
   }
 
+  function tokenHasWildcard(tok) {
+    return tok.includes('*');
+  }
+
   function wildcardToRegex(tok) {
     const escaped = tok.replace(/[.+^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*');
     return new RegExp('^' + escaped + '$');
-  }
-
-  function tokenHasWildcard(tok) {
-    return tok.includes('*');
   }

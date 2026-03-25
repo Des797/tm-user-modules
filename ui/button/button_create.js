@@ -1,4 +1,4 @@
-// === SECTION: floating button | filename: button_create ===
+// FLOATING BUTTON: `createButton()` — creates and appends the fixed circular toggle button (#qem-toggle). Applies initial theme and icon, wires click/contextmenu to `openMenu(btn)`, adds touch press-scale effect, and hides itself on post-view pages (where the mirror panel takes over). Returns the button element.
   /* ─────────────────────────────────────────────
      FLOATING BUTTON
   ───────────────────────────────────────────── */

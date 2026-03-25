@@ -1,8 +1,8 @@
-// === SECTION: blacklist page | filename: blacklist_page ===
+// BLACKLIST PAGE: `buildBlacklistPage()` — inner function of createRelationsManager. Builds the Blacklisted tab: add-input with autocomplete (space-separated batch add), search filter, scrollable list of blacklisted tags with post counts and undo-able delete. Appends to `pageBl`.
     /* ══════════════════════════════════════════
        BLACKLIST PAGE
     ══════════════════════════════════════════ */
-    function buildBlacklistPage() {
+    function buildBlacklistPage(container) {
       const addArea = document.createElement('div');
       addArea.className = 'qem-mgr-add-area';
 
@@ -94,6 +94,6 @@
       });
 
       renderBlList('');
-      pageBl.appendChild(addArea);
-      pageBl.appendChild(list);
+      container.appendChild(addArea);
+      container.appendChild(list);
     }

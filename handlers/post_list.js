@@ -1,4 +1,4 @@
-// === SECTION: post list handler | filename: post_list ===
+// POST LIST HANDLER: `handlePostList()` — attaches a capturing click listener on post-list pages. `onThumbnailClick(e)` walks up from the click target to find a post link; when Quick Edit is active the navigation proceeds normally (edit panel opens on the destination page). No interception occurs — the handler is a hook point for future behaviour.
   /* ─────────────────────────────────────────────
      POST LIST — intercept thumbnail clicks
   ───────────────────────────────────────────── */

@@ -1,4 +1,4 @@
-// === SECTION: api client | filename: api_client ===
+// API CLIENT: `fetchTagCount(tag, cb)` fetches post count for a tag from the rule34 dapi, caches result with a 7-day TTL, calls back with count or null. `fetchTagCountPermanent(tag, cb)` is identical but skips TTL — used for relation/blacklist chips where staleness is acceptable.
   /* Fetch post count for a single tag via dapi; calls back with count string or null */
   function fetchTagCount(tag, cb) {
     const cache = getCountCache();

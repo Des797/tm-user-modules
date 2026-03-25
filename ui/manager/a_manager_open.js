@@ -1,4 +1,4 @@
-// === SECTION: manager open | filename: a_manager_open ===
+// MANAGER OPEN: Opens `createRelationsManager()`. Contains: duplicate-guard, full #qem-mgr-styles injection, all shared DOM variables (mgr, _navStack, header, tabs, five page divs, _builtPages Set), `switchTab(name, push?)`, tab click wiring (Tags/Suggestions are lazy-built on first click), DOM assembly, `_lockScroll()`, and the initial `switchTab` call. Does NOT contain the closing brace — continued in z_manager_close.js.
   /* ─────────────────────────────────────────────
      RELATIONS MANAGER
   ───────────────────────────────────────────── */

@@ -1,8 +1,8 @@
-// === SECTION: data page | filename: data_page ===
+// DATA PAGE: `buildDataPage()` — inner function of createRelationsManager. Builds the Data tab: Export (serialises all GM stores to a downloadable JSON file), Import (reads a JSON file and writes each valid key, merging tag counts without overwriting newer entries, then reopens the manager on the same tab), and Reset (confirms then nulls all GM keys). Appends to `pageData`.
     /* ══════════════════════════════════════════
        DATA PAGE
     ══════════════════════════════════════════ */
-    function buildDataPage() {
+    function buildDataPage(container) {
       const wrap = document.createElement('div');
       Object.assign(wrap.style, { padding: '14px', display: 'flex', flexDirection: 'column', gap: '12px', overflowY: 'auto', flex: '1' });
 
@@ -129,5 +129,5 @@
         }
       ));
 
-      pageData.appendChild(wrap);
+      container.appendChild(wrap);
     }

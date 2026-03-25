@@ -1,4 +1,4 @@
-// === SECTION: autocomplete logic | filename: autocomplete ===
+// AUTOCOMPLETE LOGIC: `attachAutocomplete(element, onSelect, anchorEl?, getExistingTags?, opts?)` — wires tag autocomplete to any input or textarea. Debounces input, fetches suggestions from the AC API, renders them in the shared dropdown with smart above/below positioning, handles keyboard nav (↑↓ Enter Esc), greys out already-present tags, and calls `onSelect(tag)` on pick. Returns `{hide}`. Works for both multi-token textareas (mirror) and single-token inputs (manager fields).
   /*
    * attachAutocomplete(element, onSelect, anchorEl?)
    *
@@ -102,7 +102,7 @@
           row.addEventListener('pointerup', e => {
             const dx = Math.abs(e.clientX - _downX);
             const dy = Math.abs(e.clientY - _downY);
-            if (dx < 8 && dy < 8) { hideList(); onSelect(tag); }
+            if (dx < 8 && dy < 8) { suppressNextClick(); hideList(); onSelect(tag); }
           });
         }
         list.appendChild(row);

@@ -1,4 +1,4 @@
-// === SECTION: tags page | filename: tags_page ===
+// TAGS PAGE: `buildTagsPage()` — inner function of createRelationsManager. Builds the Tags tab: stats bar (tag count, relation count, synonym groups), searchable/sortable tag list (by relation count, alpha, or post count) with canonical/alias badges, and a detail view per tag showing direct and transitive parents/children, synonyms, antonyms, compound rules, and raw rules with inline delete. Graph helpers: `buildGraph` (full relation graph), `transitive` (BFS traversal), `relCount`, `getAllTags`, `buildSynonymMap` (union-find). Appends to `pageTags`.
     function buildTagsPage() {
       /* ── Graph helpers ── */
       function buildGraph(rules) {

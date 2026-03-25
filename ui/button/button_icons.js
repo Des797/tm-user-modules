@@ -1,4 +1,4 @@
-// === SECTION: button icons | filename: button_icons ===
+// BUTTON ICONS: `getIcon(active)` — returns an SVG string for the floating toggle button. Filled pencil when active, outline pencil-on-square when inactive.
   function getIcon(active) {
     /* pencil icon — filled when active, outline when off */
     if (active) {

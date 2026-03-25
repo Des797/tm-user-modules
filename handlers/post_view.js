@@ -1,4 +1,4 @@
-// === SECTION: post view handler | filename: post_view ===
+// POST VIEW HANDLER: `handlePostView()` — on post-view pages: skips auto-open on reload/back-forward navigations, calls `tryOpenEditPanel()` on fresh loads when Quick Edit is active, forces scroll-to-top twice (countering site JS), then polls for the tags textarea and calls `createTagsMirror()` once found. `tryOpenEditPanel()` tries three strategies in order: click `a[href="#edit"]`, show `#edit`/`#edit_form` directly, retry after 600 ms. `scrollToEdit()` smoothly scrolls to the edit form.
   /* ─────────────────────────────────────────────
      POST VIEW — auto-open edit panel
   ───────────────────────────────────────────── */

@@ -37,6 +37,12 @@
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/tags/tags_details.js
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/tags/tags_page.js
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/manager_open.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/mirror/mirror_styles.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/mirror/mirror_dom.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/mirror/mirror_chips.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/mirror/mirror_rule_bar.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/mirror/mirror_related.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/mirror/mirror_sync.js
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/mirror/mirror_create.js
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/scroll_lock.js
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/toast.js

@@ -129,8 +129,8 @@
         color: #ccc;
         border: 1px solid #444;
         border-radius: 20px;
-        padding: 4px 10px;
-        font-size: 12px;
+        padding: 8px 10px;
+        font-size: 13px;
         font-family: monospace;
         cursor: pointer;
         white-space: nowrap;

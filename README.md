@@ -27,7 +27,6 @@ Every `.js` file **must** begin with a single-line block comment that is the fil
 | `ui/button/` | Floating button — create, theme, icons, menu, toggle |
 | `ui/mirror/` | Bottom mirror panel — DOM, chips, sync, styles |
 | `ui/manager/` | Full-screen relations manager — shell, tabs, pages |
-| `ui/manager/tags/` | Tags tab — graph, synonyms, list, detail, page |
 | `ui/autocomplete/` | Shared autocomplete dropdown |
 | `handlers/` | Page-level entry points (post view, post list) |
 | `init/` | Bootstrap / entry point |

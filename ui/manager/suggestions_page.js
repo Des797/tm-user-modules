@@ -3,6 +3,8 @@
        SUGGESTIONS PAGE
     ══════════════════════════════════════════ */
     function buildSuggestionsPage(container) {
+      // Back-compat: older builds referenced `pageSugg`; keep it defined.
+      const pageSugg = container;
       const _dismissed = new Set();
 
       function getAncestors(tag, parentGraph) {

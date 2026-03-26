@@ -78,7 +78,7 @@
         const parsed = parseRule(r);
         if (!parsed) return;
         const row = document.createElement('div');
-        row.style.cssText = 'display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:0.5px solid #0e1a13;font-size:13px;font-family:monospace;color:#8ab89a;';
+        row.style.cssText = 'display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:0.5px solid #0e1a13;font-size:13px;color:#8ab89a;';
         const txt = document.createElement('span'); txt.style.flex = '1'; txt.style.wordBreak = 'break-all';
         const lSide = parsed.leftGroups.map(g => g.join(' ')).join(' | ');
         const rSide = parsed.rightGroups.map(g => g.join(' ')).join(' | ');

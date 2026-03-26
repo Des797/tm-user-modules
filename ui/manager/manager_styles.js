@@ -46,7 +46,7 @@
       .qem-mgr-input {
         flex: 1; background: #0e1a13; border: 1px solid #2a3e30;
         border-radius: 8px; color: #d0ead8; font-size: 15px;
-        font-family: monospace; padding: 9px 12px; outline: none;
+        padding: 9px 12px; outline: none;
         min-width: 0;
       }
       .qem-mgr-input:focus { border-color: #2d9e5f; }
@@ -78,9 +78,9 @@
         border-bottom: 1px solid #0e1a13; gap: 8px; font-size: 15px;
       }
       .qem-mgr-rule:hover { background: #0d1710; }
-      .qem-mgr-rule-left  { color: #8ab89a; font-family: monospace; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; direction: rtl; text-align: right; }
+      .qem-mgr-rule-left  { color: #8ab89a; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; direction: rtl; text-align: right; }
       .qem-mgr-rule-op    { color: #2d9e5f; font-weight: 700; font-size: 14px; flex-shrink: 0; padding: 0 6px; }
-      .qem-mgr-rule-right { color: #8ab89a; font-family: monospace; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .qem-mgr-rule-right { color: #8ab89a; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
       .qem-mgr-del {
         background: none; border: none; color: #2a4035; font-size: 18px;
         cursor: pointer; padding: 0 4px; flex-shrink: 0; line-height: 1;
@@ -91,7 +91,7 @@
         padding: 40px 32px; text-align: center; color: #2a4035; font-size: 15px;
       }
       .qem-mgr-tag-chip-preview {
-        font-size: 12px; color: #3a6048; font-family: monospace;
+        font-size: 12px; color: #3a6048;
       }
       /* ── Suggestions tab ── */
       #qem-sugg-list { flex: 1; overflow-y: auto; padding: 8px 0; overscroll-behavior: contain; }
@@ -104,10 +104,10 @@
       }
       .qem-sugg-desc code {
         background: #1a3327; color: #4ece88; border-radius: 4px;
-        padding: 1px 6px; font-family: monospace; font-size: 14px;
+        padding: 1px 6px; font-size: 14px;
       }
       .qem-sugg-chain {
-        font-size: 13px; color: #3a7a52; margin-bottom: 12px; font-family: monospace;
+        font-size: 13px; color: #3a7a52; margin-bottom: 12px;
       }
       .qem-sugg-btns { display: flex; gap: 8px; }
       .qem-sugg-accept {
@@ -155,7 +155,7 @@
       .qem-detail-chip.antonym   { border-color: rgba(232,64,64,0.35);   color: #ff8080; background: rgba(232,64,64,0.06); }
       .qem-detail-chip.transitive { opacity: 0.6; font-style: italic; }
       .qem-compound-block { background: rgba(45,158,95,0.07); border-radius: 8px; padding: 8px 10px; font-size: 13px; margin-bottom: 4px; color: #c0ddc8; }
-      .qem-compound-block code { background: rgba(45,158,95,0.15); color: #4ece88; border-radius: 3px; padding: 1px 5px; font-family: monospace; }
+      .qem-compound-block code { background: rgba(45,158,95,0.15); color: #4ece88; border-radius: 3px; padding: 1px 5px; }
     `;
     document.head.appendChild(s);
   }

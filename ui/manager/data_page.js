@@ -3,6 +3,8 @@
        DATA PAGE
     ══════════════════════════════════════════ */
     function buildDataPage(container) {
+      // Back-compat: older builds referenced `pageData`; keep it defined.
+      const pageData = container;
       const wrap = document.createElement('div');
       Object.assign(wrap.style, { padding: '14px', display: 'flex', flexDirection: 'column', gap: '12px', overflowY: 'auto', flex: '1' });
 

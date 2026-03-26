@@ -25,17 +25,16 @@
       if (_relatedRowEl) { _relatedRowEl.remove(); _relatedRowEl = null; }
       if (!tags.length) return;
 
-      const row = makeChipRow(tags, 'qem-chip-related', '🔗 Related', mirrorTA, sup, () => {
-        renderRelatedRow();
-      });
+      const row = makeCollapsibleChipRow(
+        tags,
+        'qem-chip-related',
+        '🔗 Related',
+        COLLAPSE_KEY_RELATED,
+        mirrorTA,
+        sup,
+        () => { renderRelatedRow(); }
+      );
       if (!row) return;
-
-      if (GM_getValue(COLLAPSE_KEY_RELATED, false)) row.classList.add('collapsed');
-      row.querySelector('.qem-chips-label').addEventListener('click', e => {
-        e.stopPropagation();
-        row.classList.toggle('collapsed');
-        GM_setValue(COLLAPSE_KEY_RELATED, row.classList.contains('collapsed'));
-      });
 
       _relatedRowEl = row;
       body.insertBefore(row, body.firstChild);

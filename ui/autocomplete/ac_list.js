@@ -28,7 +28,6 @@
         .qem-ac-item {
           padding: 9px 14px;
           font-size: 13px;
-          font-family: monospace;
           color: #ddd;
           cursor: pointer;
           border-bottom: 1px solid #1e1e2a;

@@ -3,6 +3,8 @@
        BLACKLIST PAGE
     ══════════════════════════════════════════ */
     function buildBlacklistPage(container) {
+      // Back-compat: older builds referenced `pageBl`; keep it defined.
+      const pageBl = container;
       const addArea = document.createElement('div');
       addArea.className = 'qem-mgr-add-area';
 

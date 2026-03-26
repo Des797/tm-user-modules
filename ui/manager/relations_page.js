@@ -3,6 +3,7 @@
        RELATIONS PAGE
     ══════════════════════════════════════════ */
     function buildRelationsPage(container) {
+      const pageRel = container;
       /* Add area */
       const addArea = document.createElement('div');
       addArea.className = 'qem-mgr-add-area';

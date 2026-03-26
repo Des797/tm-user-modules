@@ -28,10 +28,12 @@
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/manager_dom.js
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/manager_styles.js
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/manager_tabs.js
-// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/blacklist_page.js
-// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/data_page.js
-// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/relations_page.js
-// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/suggestions_page.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/blacklist/blacklist_page.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/data/data_page.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/relations/relations_form.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/relations/relations_list.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/relations/relations_page.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/suggestions/suggestions_page.js
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/tags/tags_graph.js
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/tags/tags_synonyms.js
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/tags/tags_list.js

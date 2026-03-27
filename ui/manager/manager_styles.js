@@ -50,6 +50,10 @@
         min-width: 0;
       }
       .qem-mgr-input:focus { border-color: #2d9e5f; }
+      .qem-mgr-expanded-input {
+        width: 100%; box-sizing: border-box; resize: none;
+        font-family: system-ui, sans-serif; line-height: 1.5;
+      }
       .qem-mgr-ops {
         display: flex; gap: 4px; flex-shrink: 0;
       }

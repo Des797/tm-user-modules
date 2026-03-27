@@ -2,7 +2,7 @@
 
   function buildRelationsPage(container) {
     const form = buildRelationsForm(container);
-    const { leftInput, rightInput, searchInput, addBtn, cancelBtn, getSelectedOp, setSelectedOp, loadRuleIntoEditor } = form;
+    const { addArea, leftInput, rightInput, searchInput, addBtn, cancelBtn, getSelectedOp, setSelectedOp, loadRuleIntoEditor } = form;
 
     const { renderRulesList, getEditingRule, setEditingRule } = buildRelationsList(container, form);
 
@@ -21,6 +21,14 @@
     }
     attachAutocomplete(leftInput,  tag => acReplaceLastToken(leftInput,  tag));
     attachAutocomplete(rightInput, tag => acReplaceLastToken(rightInput, tag));
+
+    addArea.addEventListener('focusin', e => {
+      const el = e.target;
+      if (!el || el.tagName !== 'TEXTAREA' || !el.classList.contains('qem-mgr-expanded-input')) return;
+      if (el._qemAcAttached) return;
+      el._qemAcAttached = true;
+      attachAutocomplete(el, tag => acReplaceLastToken(el, tag));
+    });
 
     addBtn.addEventListener('click', () => {
       const l = leftInput.value.trim();
@@ -42,8 +50,7 @@
       }
       saveRelations(all);
       rightInput.value = '';
-      searchInput.value = '';
-      renderRulesList('');
+      renderRulesList(searchInput.value);
       showToast(editingRule ? 'Rule updated' : 'Rule added');
       rightInput.focus();
     });

@@ -195,6 +195,16 @@
 
     wrap._refreshLayout = () => scheduleAutoRowUpdate();
 
+    wrap._syncVisibility = () => {
+      const cur = currentTags();
+      chipEls.forEach(chip => {
+        if (chip.style.display === 'none' && !cur.has(chip.dataset.tag)) chip.style.display = '';
+        else if (chip.style.display !== 'none' && cur.has(chip.dataset.tag)) chip.style.display = 'none';
+      });
+      renderColumns();
+      scheduleAutoRowUpdate();
+    };
+
     return wrap;
   }
 

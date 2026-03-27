@@ -1,4 +1,4 @@
-// RELATIONS FORM: `buildRelationsForm(container)` — builds the add/edit area for the Relations tab. Creates dual tag inputs (left/right), operator buttons (= > < =/=), swap button, search input, and add/cancel buttons. Returns `{ addArea, leftInput, rightInput, searchInput, addBtn, cancelBtn, ops, getSelectedOp, setSelectedOp, loadRuleIntoEditor }`.
+// RELATIONS FORM: `buildRelationsForm(container)` — builds the add/edit area for the Relations tab. Creates dual tag inputs (left/right), operator buttons (= > < =/=), swap button, search input, and add/cancel buttons. Left/right inputs expand to a full-width multiline textarea on focus and collapse on blur. Returns `{ addArea, leftInput, rightInput, searchInput, addBtn, cancelBtn, ops, getSelectedOp, setSelectedOp, loadRuleIntoEditor, getExpandedTA }`.
 
   function buildRelationsForm(container) {
     const addArea = document.createElement('div');
@@ -11,6 +11,7 @@
     leftInput.className = 'qem-mgr-input';
     leftInput.placeholder = 'Left (space=AND, |=OR)…';
     leftInput.autocomplete = 'off';
+    leftInput.spellcheck = false;
 
     const ops = document.createElement('div');
     ops.className = 'qem-mgr-ops';
@@ -43,8 +44,68 @@
     rightInput.className = 'qem-mgr-input';
     rightInput.placeholder = 'Right (space=AND, |=OR)…';
     rightInput.autocomplete = 'off';
+    rightInput.spellcheck = false;
 
     row1.appendChild(leftInput); row1.appendChild(ops); row1.appendChild(swapBtn); row1.appendChild(rightInput);
+
+    /* ── Expand input → full-width textarea on focus ── */
+    let _expandTA = null;
+
+    function expandInput(input) {
+      if (_expandTA) return;
+      const ta = document.createElement('textarea');
+      ta.className = 'qem-mgr-input qem-mgr-expanded-input';
+      ta.value = input.value;
+      ta.placeholder = input.placeholder;
+      ta.autocomplete = 'off';
+      ta.spellcheck = false;
+      ta.rows = 1;
+      ta.wrap = 'soft';
+      ta.style.overflowY = 'hidden';
+      ta.style.whiteSpace = 'pre-wrap';
+      ta.style.wordBreak = 'break-word';
+      _expandTA = ta;
+      const isRight = input === rightInput;
+      if (isRight) {
+        rightInput.style.display = 'none';
+        addArea.insertBefore(ta, row2);
+      } else {
+        row1.style.display = 'none';
+        addArea.insertBefore(ta, row1);
+      }
+      ta.focus();
+      const len = ta.value.length;
+      ta.setSelectionRange(len, len);
+
+      function autoSize() {
+        const cs = getComputedStyle(ta);
+        const lh = parseFloat(cs.lineHeight) || 16;
+        const pt = parseFloat(cs.paddingTop) || 0;
+        const pb = parseFloat(cs.paddingBottom) || 0;
+        const contentH = Math.max(0, ta.scrollHeight - pt - pb);
+        const rows = Math.max(1, Math.ceil(contentH / lh));
+
+        ta.style.height = '';
+        ta.rows = rows;
+      }
+      autoSize();
+      ta.addEventListener('input', autoSize);
+      window.addEventListener('resize', autoSize);
+
+      function collapse() {
+        input.value = ta.value.trim();
+        window.removeEventListener('resize', autoSize);
+        ta.remove();
+        if (isRight) rightInput.style.display = '';
+        else row1.style.display = '';
+        _expandTA = null;
+      }
+      ta.addEventListener('blur', collapse);
+      ta.addEventListener('keydown', e => { if (e.key === 'Escape') ta.blur(); });
+    }
+
+    leftInput.addEventListener('focus',  () => expandInput(leftInput));
+    rightInput.addEventListener('focus', () => expandInput(rightInput));
 
     const row2 = document.createElement('div');
     row2.className = 'qem-mgr-row';
@@ -85,5 +146,6 @@
       getSelectedOp: () => selectedOp,
       setSelectedOp,
       loadRuleIntoEditor,
+      getExpandedTA: () => _expandTA,
     };
   }

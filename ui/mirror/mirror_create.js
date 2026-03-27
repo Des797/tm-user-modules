@@ -21,12 +21,17 @@
 
     const recentRow = makeCollapsibleChipRow(
       getRecentTags(), 'qem-chip-recent', '🕘 Recent', COLLAPSE_KEY_RECENT, mirrorTA, new Set(),
-      val => { syncToSource(sourceTextarea, val); scheduleRelated(); }
+      val => { syncToSource(sourceTextarea, val); syncStaticChips(); scheduleRelated(); }
     );
     const favRow = makeCollapsibleChipRow(
       getFavoriteTags(), 'qem-chip-fav', '★ Favorites', COLLAPSE_KEY_FAV, mirrorTA, new Set(),
-      val => { syncToSource(sourceTextarea, val); scheduleRelated(); }
+      val => { syncToSource(sourceTextarea, val); syncStaticChips(); scheduleRelated(); }
     );
+
+    function syncStaticChips() {
+      if (recentRow) recentRow._syncVisibility();
+      if (favRow) favRow._syncVisibility();
+    }
 
     function scheduleRelated() {
       if (!renderRelatedRow) return;
@@ -48,7 +53,7 @@
       const { renderRelatedRow: rrr } = buildRelatedRowManager(body, mirrorTA, relMaps, blacklist, { recentRow, favRow });
       renderRelatedRow = rrr;
       renderRelatedRow();
-      mirrorTA.addEventListener('input', scheduleRelated);
+      mirrorTA.addEventListener('input', () => { syncStaticChips(); scheduleRelated(); });
     } catch (e) {
       console.warn('[QEM] Error building relation rows:', e);
     }
@@ -86,6 +91,7 @@
       document.querySelectorAll('.qem-chip').forEach(c => {
         if ((c.dataset.tag || c.textContent) === tag) c.style.display = 'none';
       });
+      syncStaticChips();
       scheduleRelated();
     }, null, () => new Set(parseTags(mirrorTA.value)));
 
@@ -108,7 +114,7 @@
     }, { forceAbove: true });
 
     /* ── Sync & submit ── */
-    wireTextareaSync(mirrorTA, sourceTextarea, scheduleRelated);
+    wireTextareaSync(mirrorTA, sourceTextarea, () => { syncStaticChips(); scheduleRelated(); });
     wireSubmitHandler(sourceTextarea, originalTags);
     wireBackdropObserver(mirror, backdrop);
 

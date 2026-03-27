@@ -1,11 +1,4 @@
-// MIRROR CHIPS: Chip row factory functions for the mirror panel.
-//
-// `makeChipRow(tags, extraClass, labelText, mirrorTA, suppressed, onChipAdded)` — builds a `.qem-chips` category section with:
-//   a label, a horizontal scroller containing a grid (auto row count up to 10, expanding until overflow fits),
-//   and an expand/compact button. Chips already present in `mirrorTA` are hidden. Each chip tap appends
-//   the tag to the textarea, hides all matching chips, and calls `onChipAdded()`. Lazily fetches post counts via `fetchTagCountPermanent`.
-//
-// `makeCollapsibleChipRow(tags, extraClass, labelText, collapseKey, mirrorTA, suppressed, onChipAdded)` — wraps `makeChipRow` with GM-persisted collapse state toggled by clicking the label.
+// MIRROR CHIPS: Chip row factory functions for the mirror panel. `makeChipRow(tags, extraClass, labelText, mirrorTA, suppressed, onChipAdded)` — builds a `.qem-chips` category section with: a label, a horizontal scroller containing a grid (auto row count up to 10, expanding until overflow fits), and an expand/compact button. Chips already present in `mirrorTA` are hidden. Each chip tap appends the tag to the textarea, hides all matching chips, and calls `onChipAdded()`. Lazily fetches post counts via `fetchTagCountPermanent`. `makeCollapsibleChipRow(tags, extraClass, labelText, collapseKey, mirrorTA, suppressed, onChipAdded)` — wraps `makeChipRow` with GM-persisted collapse state toggled by clicking the label.
 
   function makeChipRow(tags, extraClass, labelText, mirrorTA, suppressed, onChipAdded) {
     suppressed = suppressed || new Set();
@@ -139,11 +132,11 @@
     }
 
     function updateAutoRowCount() {
-      if (!wrap.isConnected) return;
+      if (!wrap.isConnected) { scheduleAutoRowUpdate(); return; }
       if (wrap.classList.contains('collapsed')) return;
 
       const clientW = scroller.clientWidth || 0;
-      if (clientW < 40) return;
+      if (clientW < 40) { scheduleAutoRowUpdate(); return; }
 
       if (manualCollapsed) {
         rowCount = 1;

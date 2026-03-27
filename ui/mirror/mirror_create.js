@@ -119,6 +119,27 @@
     mirror.classList.add('visible', 'minimized');
     minBtn.innerHTML = '&#x2b;';
 
+    function refreshChipLayouts() {
+      const rows = body.querySelectorAll('.qem-chips');
+      console.log(`[QEM refresh] refreshChipLayouts called, found ${rows.length} rows`);
+      rows.forEach(row => {
+        console.log(`[QEM refresh] row has _refreshLayout=${typeof row._refreshLayout}, label=${row.querySelector('.qem-chips-label')?.textContent}`);
+        if (row._refreshLayout) row._refreshLayout();
+      });
+    }
+
+    minBtn.addEventListener('click', () => { setTimeout(() => {
+      const min = mirror.classList.contains('minimized');
+      console.log(`[QEM refresh] minBtn click, minimized=${min}`);
+      if (!min) refreshChipLayouts();
+    }, 0); });
+    const titlebar = mirror.querySelector('#qem-mirror-titlebar');
+    if (titlebar) titlebar.addEventListener('click', () => { setTimeout(() => {
+      const min = mirror.classList.contains('minimized');
+      console.log(`[QEM refresh] titlebar click, minimized=${min}`);
+      if (!min) refreshChipLayouts();
+    }, 0); });
+
     if (mirrorTA.value && !mirrorTA.value.endsWith(' ')) {
       mirrorTA.value += ' ';
       syncToSource(sourceTextarea, mirrorTA.value);

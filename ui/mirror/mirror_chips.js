@@ -1,7 +1,7 @@
 // MIRROR CHIPS: Chip row factory functions for the mirror panel.
 //
 // `makeChipRow(tags, extraClass, labelText, mirrorTA, suppressed, onChipAdded)` — builds a `.qem-chips` category section with:
-//   a label, a horizontal scroller containing a grid (1 vertical row compact, 3 vertical rows expanded),
+//   a label, a horizontal scroller containing a grid (auto row count up to 10, expanding until overflow fits),
 //   and an expand/compact button. Chips already present in `mirrorTA` are hidden. Each chip tap appends
 //   the tag to the textarea, hides all matching chips, and calls `onChipAdded()`. Lazily fetches post counts via `fetchTagCountPermanent`.
 //
@@ -139,15 +139,11 @@
     }
 
     function updateAutoRowCount() {
-      if (!wrap.isConnected) { scheduleAutoRowUpdate(); return; }
+      if (!wrap.isConnected) return;
       if (wrap.classList.contains('collapsed')) return;
 
       const clientW = scroller.clientWidth || 0;
-      if (clientW < 40) {
-        // Layout not stable yet (common when chip counts are cached and callbacks fire immediately).
-        scheduleAutoRowUpdate();
-        return;
-      }
+      if (clientW < 40) return;
 
       if (manualCollapsed) {
         rowCount = 1;
@@ -174,7 +170,7 @@
       const overflowThreshold = Math.min(34, clientW * 0.12);
 
       let chosen = 1;
-      for (let r = 1; r <= 3; r++) {
+      for (let r = 1; r <= 10; r++) {
         rowCount = r;
         wrap.classList.toggle('expanded', r > 1);
         renderColumns();
@@ -183,6 +179,7 @@
         const rowW = firstRow ? firstRow.scrollWidth : rowsWrap.scrollWidth;
         const overflow = Math.max(0, rowW - scroller.clientWidth);
         if (overflow <= overflowThreshold) { chosen = r; break; }
+        if (r === 10) chosen = r;
       }
 
       rowCount = chosen;
@@ -202,6 +199,8 @@
       updateAutoRowCount();
       expandBtn.setAttribute('aria-label', 'Compact tag list');
     });
+
+    wrap._refreshLayout = () => scheduleAutoRowUpdate();
 
     return wrap;
   }

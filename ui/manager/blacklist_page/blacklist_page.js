@@ -14,6 +14,19 @@
       blInput.className = 'qem-mgr-input';
       blInput.placeholder = 'Tag or paste space-separated list…';
       blInput.autocomplete = 'off';
+      const persistedDraft = loadSingleDraft(BLACKLIST_ADD_DRAFT_KEY) || {};
+      blInput.value = String(persistedDraft.value || '');
+      let persistTimer = null;
+      function schedulePersist() {
+        clearTimeout(persistTimer);
+        persistTimer = setTimeout(() => {
+          if (!blInput.value.trim()) {
+            clearSingleDraft(BLACKLIST_ADD_DRAFT_KEY);
+            return;
+          }
+          saveSingleDraft(BLACKLIST_ADD_DRAFT_KEY, { value: blInput.value });
+        }, 160);
+      }
       const addBtn = document.createElement('button');
       addBtn.className = 'qem-mgr-add-btn';
       addBtn.textContent = '+  Add';
@@ -79,7 +92,8 @@
         searchTimer = setTimeout(() => renderBlList(searchInput.value), 150);
       });
 
-      attachAutocomplete(blInput, tag => { blInput.value = tag + ' '; });
+      blInput.addEventListener('input', schedulePersist);
+      attachAutocomplete(blInput, tag => { blInput.value = tag + ' '; schedulePersist(); });
 
       addBtn.addEventListener('click', () => {
         const raw = blInput.value.trim();
@@ -88,9 +102,14 @@
         const all = getBlacklist();
         let added = 0;
         incoming.forEach(tag => { if (!all.includes(tag)) { all.push(tag); added++; } });
-        if (added) { saveBlacklist(all); showToast(`${added} tag${added > 1 ? 's' : ''} blacklisted`); }
+        if (added) {
+          saveBlacklist(all);
+          showToast(`${added} tag${added > 1 ? 's' : ''} blacklisted`);
+          blInput.value = '';
+          clearTimeout(persistTimer);
+          clearSingleDraft(BLACKLIST_ADD_DRAFT_KEY);
+        }
         else showToast('Already in blacklist');
-        blInput.value = '';
         searchInput.value = '';
         renderBlList('');
       });

@@ -1,20 +1,8 @@
 // MIRROR RELATED: `buildRelatedRowManager(body, mirrorTA, relMaps, blacklist)` — sets up the dynamic "🔗 Related" chip row that re-evaluates whenever the tag set changes. Returns `{ renderRelatedRow }`. On each call, `renderRelatedRow()` recomputes suppressed tags, filters the implied tag list, removes the old row element if present, and prepends a new collapsible chip row to `body`. Callers should debounce calls to `renderRelatedRow` on textarea input.
-//
-// Also applies initial suppression to already-rendered chip rows: pass `{ recentRow, favRow }` to hide suppressed chips in those rows based on the current tag set at construction time.
 
   const COLLAPSE_KEY_RELATED = 'r34_collapse_related';
 
-  function buildRelatedRowManager(body, mirrorTA, relMaps, blacklist, { recentRow, favRow } = {}) {
-    const initialSet = new Set(parseTags(mirrorTA.value));
-    const initialSuppressed = getSuppressedTags(initialSet, relMaps, blacklist);
-
-    if (recentRow) recentRow.querySelectorAll('.qem-chip').forEach(c => {
-      if (initialSuppressed.has(c.dataset.tag)) c.style.display = 'none';
-    });
-    if (favRow) favRow.querySelectorAll('.qem-chip').forEach(c => {
-      if (initialSuppressed.has(c.dataset.tag)) c.style.display = 'none';
-    });
-
+  function buildRelatedRowManager(body, mirrorTA, relMaps, blacklist) {
     let _relatedRowEl = null;
 
     function renderRelatedRow() {

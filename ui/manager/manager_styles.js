@@ -28,12 +28,20 @@
       #qem-mgr-tabs {
         display: flex; flex-shrink: 0;
         border-bottom: 1px solid #1a2e22;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        touch-action: pan-x;
+        white-space: nowrap;
+        gap: 2px;
       }
       .qem-mgr-tab {
-        flex: 1; padding: 12px; font-size: 15px; font-weight: 600;
+        flex: 0 0 auto; min-width: 96px; padding: 12px; font-size: 15px; font-weight: 600;
         text-align: center; cursor: pointer; color: #4a6e58;
         border-bottom: 2px solid transparent; transition: color 0.15s;
         letter-spacing: 0.03em;
+        user-select: none;
       }
       .qem-mgr-tab.active { color: #2d9e5f; border-bottom-color: #2d9e5f; }
       .qem-mgr-page { display: none; flex: 1; flex-direction: column; overflow: hidden; }
@@ -69,6 +77,12 @@
         cursor: pointer; flex-shrink: 0; transition: background 0.15s;
       }
       .qem-mgr-add-btn:active { background: #1a7a45; }
+      .qem-mgr-sticky-controls {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        background: #0a0f0c;
+      }
       .qem-mgr-search {
         padding: 10px 14px; border-bottom: 1px solid #1a2e22; flex-shrink: 0;
       }
@@ -82,6 +96,7 @@
         border-bottom: 1px solid #0e1a13; gap: 8px; font-size: 15px;
       }
       .qem-mgr-rule:hover { background: #0d1710; }
+      .qem-mgr-rule.active { background: #122318; }
       .qem-mgr-rule-left  { color: #8ab89a; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; direction: rtl; text-align: right; }
       .qem-mgr-rule-op    { color: #2d9e5f; font-weight: 700; font-size: 14px; flex-shrink: 0; padding: 0 6px; }
       .qem-mgr-rule-right { color: #8ab89a; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -160,6 +175,91 @@
       .qem-detail-chip.transitive { opacity: 0.6; font-style: italic; }
       .qem-compound-block { background: rgba(45,158,95,0.07); border-radius: 8px; padding: 8px 10px; font-size: 13px; margin-bottom: 4px; color: #c0ddc8; }
       .qem-compound-block code { background: rgba(45,158,95,0.15); color: #4ece88; border-radius: 3px; padding: 1px 5px; }
+      .qem-mgr-category-detail {
+        border-top: 1px solid #1a2e22;
+        padding: 10px 14px 14px;
+        overflow-y: auto;
+        max-height: 220px;
+      }
+      .qem-mgr-category-title {
+        color: #d0ead8;
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .qem-mgr-category-members {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .qem-mgr-category-chip {
+        background: #0e1a13;
+        border: 1px solid #2a3e30;
+        border-radius: 999px;
+        color: #9ecfb0;
+        font-size: 12px;
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+      .qem-mgr-category-chip:active {
+        background: #6a1a1a;
+        border-color: #a33;
+        color: #fff;
+      }
+      .qem-mgr-accordion-list {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .qem-mgr-accordion-card {
+        border: 1px solid #1e3528;
+        border-radius: 12px;
+        background: #0e1a13;
+        overflow: visible;
+      }
+      .qem-mgr-accordion-card.active {
+        border-color: #2d9e5f;
+      }
+      .qem-mgr-accordion-card .qem-mgr-rule {
+        min-height: 46px;
+        border-bottom: none;
+      }
+      .qem-mgr-accordion-detail {
+        border-top: 1px solid #1a2e22;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .qem-mgr-accordion-block {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .qem-mgr-mobile-actions {
+        overflow-x: auto;
+        padding-bottom: 2px;
+        gap: 6px;
+      }
+      .qem-mgr-mobile-actions .qem-mgr-op {
+        min-height: 40px;
+        flex-shrink: 0;
+        font-size: 12px;
+        padding: 7px 10px;
+      }
+      .qem-mgr-op.qem-mgr-op-muted {
+        background: #101c15;
+        border-color: #26382d;
+        color: #7ca18a;
+      }
+      .qem-mgr-op.qem-mgr-op-danger {
+        border-color: #6a2e2e;
+        color: #d78a8a;
+      }
+      .qem-mgr-category-chip {
+        min-height: 38px;
+      }
     `;
     document.head.appendChild(s);
   }

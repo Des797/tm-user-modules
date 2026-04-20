@@ -29,6 +29,7 @@
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/manager_styles.js
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/manager_tabs.js
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/blacklist_page/blacklist_page.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/categories_page/categories_page.js
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/data_page/data_page.js
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/relations_page/relations_form.js
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/manager/relations_page/relations_list.js
@@ -48,8 +49,11 @@
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/mirror/mirror_sync.js
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/mirror/mirror_create.js
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/scroll_lock.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/mirror/mirror_open.js
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/toast.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/ui/wiki/wiki_panel.js
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/handlers/post_list.js
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/handlers/post_view.js
+// @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/handlers/wiki_view.js
 // @require      http://192.168.1.165:8734/tampermonkey/rule34_quick_edit/js/init/bootstrap.js
 // ==/UserScript==

@@ -30,12 +30,20 @@
       const ALL_KEYS = {
         relations:  RELATIONS_KEY,
         blacklist:  BLACKLIST_KEY,
+        categories: CATEGORIES_KEY,
+        categoryMembership: CATEGORY_MEMBERSHIP_KEY,
+        categoryHierarchy: CATEGORY_HIERARCHY_KEY,
+        categoryAddDrafts: CATEGORY_ADD_DRAFTS_KEY,
+        relationsFormDraft: RELATIONS_FORM_DRAFT_KEY,
+        blacklistAddDraft: BLACKLIST_ADD_DRAFT_KEY,
         recent:     RECENT_KEY,
         favorites:  FREQ_KEY,
         tagCounts:  COUNT_KEY,
         colRecent:  'r34_collapse_recent',
         colFav:     'r34_collapse_fav',
         colRelated: 'r34_collapse_related',
+        colCategories: 'r34_collapse_categories',
+        mirrorActiveCategories: 'r34_mirror_active_categories',
       };
 
       function collectData() {
@@ -83,6 +91,9 @@
                 const keyMap = {
                   relations:  [RELATIONS_KEY,  v => Array.isArray(v)],
                   blacklist:  [BLACKLIST_KEY,   v => Array.isArray(v)],
+                  categories: [CATEGORIES_KEY,  v => typeof v === 'object' && !!v],
+                  categoryMembership: [CATEGORY_MEMBERSHIP_KEY, v => typeof v === 'object' && !!v],
+                  categoryHierarchy: [CATEGORY_HIERARCHY_KEY, v => typeof v === 'object' && !!v],
                   recent:     [RECENT_KEY,      v => Array.isArray(v)],
                   favorites:  [FREQ_KEY,        v => typeof v === 'object' && v],
                 };

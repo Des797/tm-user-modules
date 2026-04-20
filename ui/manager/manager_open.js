@@ -9,6 +9,7 @@
 
     const lazyBuilders = {
       tags: () => buildTagsPage(pages.tags),
+      cat: () => buildCategoriesPage(pages.cat),
       sugg: () => buildSuggestionsPage(pages.sugg),
     };
 

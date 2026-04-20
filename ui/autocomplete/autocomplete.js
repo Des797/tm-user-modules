@@ -125,8 +125,18 @@
           onload(res) {
             try {
               const data = JSON.parse(res.responseText);
-              if (Array.isArray(data)) showResults(data.slice(0, 8));
-              else hideList();
+              if (!Array.isArray(data)) { hideList(); return; }
+              const blacklist = typeof getBlacklist === 'function' ? getBlacklist() : [];
+              const blacklistSet = new Set(
+                (Array.isArray(blacklist) ? blacklist : [])
+                  .map(tag => String(tag || '').trim().toLowerCase())
+                  .filter(Boolean),
+              );
+              const filtered = data.filter(item => {
+                const tag = String(item?.value || item || '').trim().toLowerCase();
+                return tag && !blacklistSet.has(tag);
+              });
+              showResults(filtered.slice(0, 8));
             } catch { hideList(); }
           },
           onerror() { hideList(); },

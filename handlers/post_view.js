@@ -18,25 +18,28 @@
     setTimeout(() => window.scrollTo({ top: 0, behavior: 'instant' }), 50);
     setTimeout(() => window.scrollTo({ top: 0, behavior: 'instant' }), 400);
 
-    /* Wait for panel to be visible, then attach mirror — stop retrying once created */
-    function attachMirror() {
-      if (document.getElementById('qem-mirror')) return; // already created
-      const ta = document.getElementById('tags');
-      if (ta) { createTagsMirror(); return; }
-      setTimeout(attachMirror, 400);
-    }
-    attachMirror();
+    /* Mirror modal is opened explicitly from the menu. */
   }
 
   function tryOpenEditPanel() {
+    function getSafeEditLink() {
+      const currentNoHash = location.origin + location.pathname + location.search;
+      const links = [...document.querySelectorAll('a[href]')];
+      return links.find(a => {
+        const raw = a.getAttribute('href') || '';
+        if (raw === '#edit') return true;
+        try {
+          const url = new URL(a.href, location.href);
+          const noHash = url.origin + url.pathname + url.search;
+          return url.hash === '#edit' && noHash === currentNoHash;
+        } catch {
+          return false;
+        }
+      }) || null;
+    }
+
     /* Strategy 1: click the visible "Edit" tab/link */
-    const editLink = (
-      document.querySelector('a[href="#edit"]') ||
-      document.querySelector('a[onclick*="edit"]') ||
-      [...document.querySelectorAll('a')].find(a =>
-        /^\s*edit\s*$/i.test(a.textContent)
-      )
-    );
+    const editLink = getSafeEditLink();
 
     if (editLink) {
       editLink.click();
@@ -53,7 +56,7 @@
 
     /* Strategy 3: the panel may be injected late — retry once */
     setTimeout(() => {
-      const retryLink = document.querySelector('a[href="#edit"]');
+      const retryLink = getSafeEditLink();
       if (retryLink) { retryLink.click(); }
       else {
         const retryDiv = document.getElementById('edit') || document.getElementById('edit_form');

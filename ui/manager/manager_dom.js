@@ -22,6 +22,7 @@
 
     const TAB_DEFS = [
       ['tags', 'Tags'],
+      ['cat',  'Categories'],
       ['rel',  'Relations'],
       ['sugg', 'Suggestions'],
       ['bl',   'Blacklisted'],

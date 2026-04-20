@@ -9,6 +9,8 @@
       handlePostView();
     } else if (POST_LIST_RE.test(location.search)) {
       handlePostList();
+    } else if (WIKI_VIEW_RE.test(location.search)) {
+      handleWikiView();
     }
   }
 

@@ -6,6 +6,17 @@
     else sourceTextarea.value = val;
     sourceTextarea.dispatchEvent(new Event('input',  { bubbles: true }));
     sourceTextarea.dispatchEvent(new Event('change', { bubbles: true }));
+    closeNativeTagsAutocomplete(sourceTextarea);
+  }
+
+  function closeNativeTagsAutocomplete(sourceTextarea) {
+    if (document.activeElement === sourceTextarea) return;
+    sourceTextarea.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    const awesomplete = sourceTextarea.closest('.awesomplete');
+    if (!awesomplete) return;
+    awesomplete.classList.remove('open');
+    const list = awesomplete.querySelector('ul');
+    if (list) list.setAttribute('hidden', '');
   }
 
   function wireTextareaSync(mirrorTA, sourceTextarea, onMirrorInput) {

@@ -21,6 +21,9 @@
    */
   function parseRule(str) {
     str = str.trim();
+    function hasInvalidCategoryWildcard(groups) {
+      return groups.flat().some(tokenHasCategoryWildcard);
+    }
 
     /* Paren form: "prefix1 prefix2 ( left OP right )" */
     const parenM = str.match(/^(.*?)\(\s*(.+?)\s*(=\/=|=|>|<)\s*(.+?)\s*\)\s*$/);
@@ -29,6 +32,7 @@
       const prefix = prefixStr.trim().split(/\s+/).filter(Boolean);
       const leftGroups  = parseRuleTokens(leftStr).map(g => [...prefix, ...g]);
       const rightGroups = parseRuleTokens(rightStr).map(g => [...prefix, ...g]);
+      if (hasInvalidCategoryWildcard(leftGroups) || hasInvalidCategoryWildcard(rightGroups)) return null;
       return { leftGroups, op, rightGroups };
     }
 
@@ -36,7 +40,10 @@
     const m = str.match(/^(.+?)\s*(=\/=|=|>|<)\s*(.+)$/);
     if (!m) return null;
     const [, leftStr, op, rightStr] = m;
-    return { leftGroups: parseRuleTokens(leftStr), op, rightGroups: parseRuleTokens(rightStr) };
+    const leftGroups = parseRuleTokens(leftStr);
+    const rightGroups = parseRuleTokens(rightStr);
+    if (hasInvalidCategoryWildcard(leftGroups) || hasInvalidCategoryWildcard(rightGroups)) return null;
+    return { leftGroups, op, rightGroups };
   }
 
   function opDisplay(op) {
@@ -45,8 +52,22 @@
     return op; // = and =/= unchanged
   }
 
+  function tokenIsCategorySelector(tok) {
+    return /^category:[a-z0-9_]+$/.test(String(tok || '').trim().toLowerCase());
+  }
+
+  function tokenCategorySlug(tok) {
+    if (!tokenIsCategorySelector(tok)) return null;
+    return String(tok).trim().toLowerCase().slice('category:'.length);
+  }
+
+  function tokenHasCategoryWildcard(tok) {
+    const str = String(tok || '').trim().toLowerCase();
+    return str.startsWith('category:') && str.includes('*');
+  }
+
   function tokenHasWildcard(tok) {
-    return tok.includes('*');
+    return !tokenIsCategorySelector(tok) && String(tok || '').includes('*');
   }
 
   function wildcardToRegex(tok) {

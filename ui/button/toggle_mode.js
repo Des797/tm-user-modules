@@ -6,5 +6,10 @@
     btn.innerHTML = getIcon(isActive);
     applyButtonTheme(btn, isActive);
 
+    if (!isActive && typeof hideTagsMirror === 'function') hideTagsMirror();
+    const mirrorToggleBtn = document.getElementById('qem-mirror-toggle');
+    if (mirrorToggleBtn) mirrorToggleBtn.style.display = isActive ? 'flex' : 'none';
+    window.dispatchEvent(new CustomEvent('qem:quickedit-change', { detail: { isActive } }));
+
     showToast(isActive ? '✏️ Quick Edit ON' : '🚫 Quick Edit OFF');
   }

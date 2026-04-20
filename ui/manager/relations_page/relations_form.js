@@ -16,10 +16,16 @@
     const ops = document.createElement('div');
     ops.className = 'qem-mgr-ops';
     let selectedOp = '=';
+    let activeSide = 'left';
+    const persistedDraft = loadSingleDraft(RELATIONS_FORM_DRAFT_KEY) || {};
+    let persistTimer = null;
+
+    leftInput.value = String(persistedDraft.leftValue || '');
 
     function setSelectedOp(op) {
       selectedOp = op;
       ops.querySelectorAll('.qem-mgr-op').forEach(x => x.classList.toggle('selected', x.textContent === op));
+      schedulePersist();
     }
 
     ['=', '>', '<', '=/='].forEach(op => {
@@ -38,6 +44,7 @@
       const tmp = leftInput.value;
       leftInput.value = rightInput.value;
       rightInput.value = tmp;
+      schedulePersist();
     });
 
     const rightInput = document.createElement('input');
@@ -45,11 +52,45 @@
     rightInput.placeholder = 'Right (space=AND, |=OR)…';
     rightInput.autocomplete = 'off';
     rightInput.spellcheck = false;
+    rightInput.value = String(persistedDraft.rightValue || '');
+    if (['=', '>', '<', '=/='].includes(persistedDraft.selectedOp)) selectedOp = persistedDraft.selectedOp;
 
     row1.appendChild(leftInput); row1.appendChild(ops); row1.appendChild(swapBtn); row1.appendChild(rightInput);
 
     /* ── Expand input → full-width textarea on focus ── */
     let _expandTA = null;
+
+    function collectDraftState() {
+      return {
+        leftValue: leftInput.value,
+        rightValue: rightInput.value,
+        selectedOp,
+        activeSide,
+        expandedValue: _expandTA ? _expandTA.value : '',
+      };
+    }
+
+    function schedulePersist() {
+      clearTimeout(persistTimer);
+      persistTimer = setTimeout(() => {
+        const payload = collectDraftState();
+        if (!payload.leftValue.trim() && !payload.rightValue.trim() && !payload.expandedValue.trim()) {
+          clearSingleDraft(RELATIONS_FORM_DRAFT_KEY);
+          return;
+        }
+        saveSingleDraft(RELATIONS_FORM_DRAFT_KEY, payload);
+      }, 160);
+    }
+
+    function persistNow() {
+      clearTimeout(persistTimer);
+      const payload = collectDraftState();
+      if (!payload.leftValue.trim() && !payload.rightValue.trim() && !payload.expandedValue.trim()) {
+        clearSingleDraft(RELATIONS_FORM_DRAFT_KEY);
+        return;
+      }
+      saveSingleDraft(RELATIONS_FORM_DRAFT_KEY, payload);
+    }
 
     function expandInput(input) {
       if (_expandTA) return;
@@ -66,6 +107,7 @@
       ta.style.wordBreak = 'break-word';
       _expandTA = ta;
       const isRight = input === rightInput;
+      activeSide = isRight ? 'right' : 'left';
       if (isRight) {
         rightInput.style.display = 'none';
         addArea.insertBefore(ta, row2);
@@ -90,6 +132,7 @@
       }
       autoSize();
       ta.addEventListener('input', autoSize);
+      ta.addEventListener('input', schedulePersist);
       window.addEventListener('resize', autoSize);
 
       function collapse() {
@@ -99,13 +142,16 @@
         if (isRight) rightInput.style.display = '';
         else row1.style.display = '';
         _expandTA = null;
+        schedulePersist();
       }
       ta.addEventListener('blur', collapse);
       ta.addEventListener('keydown', e => { if (e.key === 'Escape') ta.blur(); });
     }
 
-    leftInput.addEventListener('focus',  () => expandInput(leftInput));
-    rightInput.addEventListener('focus', () => expandInput(rightInput));
+    leftInput.addEventListener('focus',  () => { activeSide = 'left'; expandInput(leftInput); schedulePersist(); });
+    rightInput.addEventListener('focus', () => { activeSide = 'right'; expandInput(rightInput); schedulePersist(); });
+    leftInput.addEventListener('input', schedulePersist);
+    rightInput.addEventListener('input', schedulePersist);
 
     const row2 = document.createElement('div');
     row2.className = 'qem-mgr-row';
@@ -119,12 +165,16 @@
     addBtn.className = 'qem-mgr-add-btn';
     addBtn.textContent = '+ Add';
 
+    const categoryBtn = document.createElement('button');
+    categoryBtn.className = 'qem-mgr-op';
+    categoryBtn.textContent = 'Category';
+
     const cancelBtn = document.createElement('button');
     cancelBtn.className = 'qem-mgr-op';
     cancelBtn.textContent = '✕';
     cancelBtn.style.display = 'none';
 
-    row2.appendChild(searchInput); row2.appendChild(cancelBtn); row2.appendChild(addBtn);
+    row2.appendChild(searchInput); row2.appendChild(categoryBtn); row2.appendChild(cancelBtn); row2.appendChild(addBtn);
     addArea.appendChild(row1); addArea.appendChild(row2);
     container.appendChild(addArea);
 
@@ -139,6 +189,16 @@
       cancelBtn.style.display = '';
       addArea.scrollIntoView({ block: 'nearest' });
       leftInput.focus();
+      schedulePersist();
+    }
+
+    if (selectedOp !== '=') setSelectedOp(selectedOp);
+    if (persistedDraft.activeSide === 'right' && persistedDraft.expandedValue) {
+      rightInput.value = String(persistedDraft.expandedValue || rightInput.value || '');
+      expandInput(rightInput);
+    } else if (persistedDraft.activeSide === 'left' && persistedDraft.expandedValue) {
+      leftInput.value = String(persistedDraft.expandedValue || leftInput.value || '');
+      expandInput(leftInput);
     }
 
     return {
@@ -147,5 +207,9 @@
       setSelectedOp,
       loadRuleIntoEditor,
       getExpandedTA: () => _expandTA,
+      categoryBtn,
+      getActiveRuleInput: () => _expandTA || (document.activeElement === rightInput ? rightInput : leftInput),
+      persistDraftNow: persistNow,
+      clearDraft: () => clearSingleDraft(RELATIONS_FORM_DRAFT_KEY),
     };
   }
